@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "arvore.h"
+#include "arquivo.h"
 
 /* Protótipos das funções de fluxo do menu */
 void menuInserir(t_arvore *raiz);
@@ -23,6 +24,7 @@ int main(void)
         printf("3 - PESQUISAR\n");
         printf("4 - ESVAZIAR A ARVORE\n");
         printf("5 - EXIBIR A ARVORE\n");
+        printf("6 - CARREGAR DADOS DE ARQUIVO\n");
         printf("0 - SAIR\n");
         printf("Escolha uma opcao: ");
 
@@ -48,6 +50,9 @@ int main(void)
                 break;
             case 5:
                 menuExibir(&raiz);
+                break;
+            case 6:
+                lerArquivo(&raiz);
                 break;
             case 0:
                 printf("Encerrando o sistema...\n");

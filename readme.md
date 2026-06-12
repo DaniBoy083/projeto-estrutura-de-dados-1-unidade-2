@@ -27,7 +27,6 @@ Cada registro armazenado possui:
 
 - Código (chave de pesquisa)
 - Nome
-- Informações adicionais definidas pela equipe
 
 Os dados dos integrantes acima representam apenas os desenvolvedores do projeto e não fazem parte dos dados armazenados na árvore.
 
@@ -45,7 +44,7 @@ Os dados dos integrantes acima representam apenas os desenvolvedores do projeto 
    - Pós-Ordem
    - Exibição gráfica
 6. Carregar dados de arquivo texto
-7. Encerrar sistema
+0. Encerrar sistema
 
 ---
 
@@ -78,143 +77,18 @@ typedef t_no* t_arvore;
 
 | Arquivo | Conteúdo |
 |---------|----------|
-| `arvore.h` | Estruturas (`t_elemento`, `t_no`, `t_arvore`) e protótipos de todas as funções da ABB |
-| `arvore.c` | Implementação das funções da ABB (inserir, remover, buscar, percursos, exibição) |
-| `main.c` | Menu interativo e controle de fluxo do sistema (parte do Daniel) |
+| `src/arvore.h` | Estruturas (`t_elemento`, `t_no`, `t_arvore`) e protótipos de todas as funções da ABB |
+| `src/arvore.c` | Implementação das funções da ABB (inserir, remover, buscar, percursos, exibição) |
+| `src/arquivo.h` | Protótipo da função de leitura de arquivo |
+| `src/arquivo.c` | Implementação da leitura de `dados.txt` e inserção dos registros na árvore |
+| `src/main.c` | Menu interativo e controle de fluxo do sistema |
+| `dados.txt` | Arquivo de entrada com os registros (na raiz do projeto) |
 
 ### Compilação
 
 ```bash
-gcc main.c arvore.c -o programa
+gcc src/main.c src/arvore.c src/arquivo.c -o programa
 ./programa
 ```
 
----
-
-# Exemplo de Arquivo de Entrada
-
-```txt
-1001;Notebook
-1002;Monitor
-1003;Teclado
-1004;Mouse
-1005;Impressora
-```
-
-Os registros podem ser alterados livremente pelo usuário.
-
----
-
-# Menu do Sistema
-
-```txt
-===== EDITOR DE ARVORE =====
-1 - INSERIR
-2 - REMOVER UM NO
-3 - PESQUISAR
-4 - ESVAZIAR A ARVORE
-5 - EXIBIR A ARVORE
-0 - SAIR
-```
-
-Ao escolher a opção **5 - EXIBIR A ARVORE**, um submenu é exibido:
-
-```txt
---- EXIBIR ARVORE ---
-1 - Pre-Ordem
-2 - In-Ordem
-3 - Pos-Ordem
-4 - Exibicao grafica
-```
-
----
-
-# Divisão de Responsabilidades
-
-A distribuição foi realizada de forma equilibrada.
-
-## Daniel Costa Carvalho Martins
-- Estrutura principal do projeto
-- Menu interativo
-- Controle de fluxo do sistema
-- Integração entre módulos
-
-**Status:** ✅ Concluído
-- Implementado `main.c` com loop principal do menu (opções 0 a 5)
-- Funções de fluxo separadas: `menuInserir`, `menuRemover`, `menuPesquisar`, `menuEsvaziar`, `menuExibir`
-- Submenu de exibição com as 4 opções de percurso/visualização
-- Tratamento básico de entrada inválida (`limparBuffer`)
-- Liberação de memória da árvore ao encerrar o programa (`esvaziar`)
-- Integração com as funções da ABB via `arvore.h`/`arvore.c`
-
-## Carlos Eduardo Menezes Cavalcante
-- Estruturas de dados da ABB
-- Criação dos nós
-- Inserção de registros
-- Validação de dados
-
-**Status:** Código legado adaptado (estrutura `t_elemento` ajustada com campo `codigo`; funções `criar`, `inserir`, `insereRaiz`, `insereEsquerda`, `insereDireita` e `compara` movidas para `arvore.c`). Validação adicional pendente de revisão por Carlos.
-
-## Nelson Francisco Suassuna Neto
-- Pesquisa de registros
-- Percursos da árvore
-- Exibição Pré-Ordem
-- Exibição In-Ordem
-- Exibição Pós-Ordem
-
-**Status:** Código legado adaptado (`exibirPreOrdem`, `exibirInOrdem`, `exibirPosOrdem` em `arvore.c`, agora exibindo código e nome). `busca`/`buscaABB` integradas ao submenu de pesquisa.
-
-## José Adrian Cosmo de Sousa
-- Remoção de nós
-- Implementação do sucessor
-- Busca com nó pai
-- Tratamento dos casos de remoção
-
-**Status:** Código legado adaptado (`remover`, `buscaSetPai` em `arvore.c`, com pequena correção na inicialização da variável `pai`). Integrado ao menu (opção 2).
-
-## Evelyn Vitória Dantas Silva do Nascimento
-- Leitura de arquivos
-- Esvaziamento da árvore
-- Exibição gráfica
-- Testes, documentação e validação final
-
-**Status:** 
-- `esvaziar` já integrada ao menu (opção 4) e à finalização do programa
-- `exibirGraficamente` adaptada para terminal padrão (sem `gotoxy`/`conio.h`), usando recuo por nível — **pendente revisão de Evelyn**
-- **Pendente:** implementação da leitura de arquivo texto (item 6 do menu) e função de carregamento de registros para a árvore
-
----
-
-# Pendências Gerais
-
-- [ ] Implementar opção **6 - Carregar dados de arquivo texto** (Evelyn)
-- [ ] Revisar exibição gráfica adaptada (Evelyn)
-- [ ] Revisar validações de inserção (Carlos)
-- [ ] Testes finais de todos os percursos e casos de remoção
-- [ ] Gravação do vídeo demonstrativo
-
----
-
-# Testes
-
-- Inserção
-- Busca
-- Remoção
-- Percursos
-- Leitura de arquivo
-- Esvaziamento da árvore
-- Exibição gráfica
-
----
-
-# Entrega
-
-O projeto será entregue contendo:
-
-- Código fonte (`arvore.h`, `arvore.c`, `main.c`)
-- README
-- Arquivo de entrada
-- Vídeo demonstrativo
-
-Disciplina: Estrutura de Dados I
-Professor: Walace Bonfim
+> **Importante:** o `dados.txt` deve estar na mesma pasta onde o `programa`/`programa.exe` é executado (raiz do projeto), pois a leitura usa caminho

@@ -1,0 +1,5 @@
+1001;Notebook
+1002;Monitor
+1003;Teclado
+1004;Mouse
+1005;Impressora
