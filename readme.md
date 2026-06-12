@@ -1,4 +1,3 @@
-
 # Mini Projeto - Árvore Binária de Busca (ABB)
 
 ## Estrutura de Dados I
@@ -53,7 +52,7 @@ Os dados dos integrantes acima representam apenas os desenvolvedores do projeto 
 # Estrutura do Registro
 
 ```c
-typedef struct {
+typedef struct elementos {
     int codigo;
     char nome[100];
 } t_elemento;
@@ -65,12 +64,29 @@ typedef struct {
 
 ```c
 typedef struct no {
-    t_elemento dado;
     struct no *esq;
+    t_elemento dado;
     struct no *dir;
 } t_no;
 
 typedef t_no* t_arvore;
+```
+
+---
+
+# Organização dos Arquivos
+
+| Arquivo | Conteúdo |
+|---------|----------|
+| `arvore.h` | Estruturas (`t_elemento`, `t_no`, `t_arvore`) e protótipos de todas as funções da ABB |
+| `arvore.c` | Implementação das funções da ABB (inserir, remover, buscar, percursos, exibição) |
+| `main.c` | Menu interativo e controle de fluxo do sistema (parte do Daniel) |
+
+### Compilação
+
+```bash
+gcc main.c arvore.c -o programa
+./programa
 ```
 
 ---
@@ -92,14 +108,23 @@ Os registros podem ser alterados livremente pelo usuário.
 # Menu do Sistema
 
 ```txt
-EDITOR DE ÁRVORE
-
+===== EDITOR DE ARVORE =====
 1 - INSERIR
-2 - REMOVER UM NÓ
+2 - REMOVER UM NO
 3 - PESQUISAR
-4 - ESVAZIAR A ÁRVORE
-5 - EXIBIR A ÁRVORE
+4 - ESVAZIAR A ARVORE
+5 - EXIBIR A ARVORE
 0 - SAIR
+```
+
+Ao escolher a opção **5 - EXIBIR A ARVORE**, um submenu é exibido:
+
+```txt
+--- EXIBIR ARVORE ---
+1 - Pre-Ordem
+2 - In-Ordem
+3 - Pos-Ordem
+4 - Exibicao grafica
 ```
 
 ---
@@ -114,11 +139,21 @@ A distribuição foi realizada de forma equilibrada.
 - Controle de fluxo do sistema
 - Integração entre módulos
 
+**Status:** ✅ Concluído
+- Implementado `main.c` com loop principal do menu (opções 0 a 5)
+- Funções de fluxo separadas: `menuInserir`, `menuRemover`, `menuPesquisar`, `menuEsvaziar`, `menuExibir`
+- Submenu de exibição com as 4 opções de percurso/visualização
+- Tratamento básico de entrada inválida (`limparBuffer`)
+- Liberação de memória da árvore ao encerrar o programa (`esvaziar`)
+- Integração com as funções da ABB via `arvore.h`/`arvore.c`
+
 ## Carlos Eduardo Menezes Cavalcante
 - Estruturas de dados da ABB
 - Criação dos nós
 - Inserção de registros
 - Validação de dados
+
+**Status:** Código legado adaptado (estrutura `t_elemento` ajustada com campo `codigo`; funções `criar`, `inserir`, `insereRaiz`, `insereEsquerda`, `insereDireita` e `compara` movidas para `arvore.c`). Validação adicional pendente de revisão por Carlos.
 
 ## Nelson Francisco Suassuna Neto
 - Pesquisa de registros
@@ -127,17 +162,36 @@ A distribuição foi realizada de forma equilibrada.
 - Exibição In-Ordem
 - Exibição Pós-Ordem
 
+**Status:** Código legado adaptado (`exibirPreOrdem`, `exibirInOrdem`, `exibirPosOrdem` em `arvore.c`, agora exibindo código e nome). `busca`/`buscaABB` integradas ao submenu de pesquisa.
+
 ## José Adrian Cosmo de Sousa
 - Remoção de nós
 - Implementação do sucessor
 - Busca com nó pai
 - Tratamento dos casos de remoção
 
+**Status:** Código legado adaptado (`remover`, `buscaSetPai` em `arvore.c`, com pequena correção na inicialização da variável `pai`). Integrado ao menu (opção 2).
+
 ## Evelyn Vitória Dantas Silva do Nascimento
 - Leitura de arquivos
 - Esvaziamento da árvore
 - Exibição gráfica
 - Testes, documentação e validação final
+
+**Status:** 
+- `esvaziar` já integrada ao menu (opção 4) e à finalização do programa
+- `exibirGraficamente` adaptada para terminal padrão (sem `gotoxy`/`conio.h`), usando recuo por nível — **pendente revisão de Evelyn**
+- **Pendente:** implementação da leitura de arquivo texto (item 6 do menu) e função de carregamento de registros para a árvore
+
+---
+
+# Pendências Gerais
+
+- [ ] Implementar opção **6 - Carregar dados de arquivo texto** (Evelyn)
+- [ ] Revisar exibição gráfica adaptada (Evelyn)
+- [ ] Revisar validações de inserção (Carlos)
+- [ ] Testes finais de todos os percursos e casos de remoção
+- [ ] Gravação do vídeo demonstrativo
 
 ---
 
@@ -157,7 +211,7 @@ A distribuição foi realizada de forma equilibrada.
 
 O projeto será entregue contendo:
 
-- Código fonte
+- Código fonte (`arvore.h`, `arvore.c`, `main.c`)
 - README
 - Arquivo de entrada
 - Vídeo demonstrativo
