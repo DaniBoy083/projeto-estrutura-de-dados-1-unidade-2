@@ -91,4 +91,141 @@ gcc src/main.c src/arvore.c src/arquivo.c -o programa
 ./programa
 ```
 
-> **Importante:** o `dados.txt` deve estar na mesma pasta onde o `programa`/`programa.exe` é executado (raiz do projeto), pois a leitura usa caminho
+> **Importante:** o `dados.txt` deve estar na mesma pasta onde o `programa`/`programa.exe` é executado (raiz do projeto), pois a leitura usa caminho relativo.
+
+---
+
+# Exemplo de Arquivo de Entrada (`dados.txt`)
+
+```txt
+1001;Notebook
+1002;Monitor
+1003;Teclado
+1004;Mouse
+1005;Impressora
+```
+
+Os registros podem ser alterados livremente pelo usuário.
+
+---
+
+# Menu do Sistema
+
+```txt
+===== EDITOR DE ARVORE =====
+1 - INSERIR
+2 - REMOVER UM NO
+3 - PESQUISAR
+4 - ESVAZIAR A ARVORE
+5 - EXIBIR A ARVORE
+6 - CARREGAR DADOS DE ARQUIVO
+0 - SAIR
+```
+
+Ao escolher a opção **5 - EXIBIR A ARVORE**, um submenu é exibido:
+
+```txt
+--- EXIBIR ARVORE ---
+1 - Pre-Ordem
+2 - In-Ordem
+3 - Pos-Ordem
+4 - Exibicao grafica
+```
+
+---
+
+# Divisão de Responsabilidades
+
+A distribuição foi realizada de forma equilibrada.
+
+## Daniel Costa Carvalho Martins
+- Estrutura principal do projeto
+- Menu interativo
+- Controle de fluxo do sistema
+- Integração entre módulos
+
+**Status:** ✅ Concluído
+- Implementado `main.c` com loop principal do menu (opções 0 a 6)
+- Funções de fluxo separadas: `menuInserir`, `menuRemover`, `menuPesquisar`, `menuEsvaziar`, `menuExibir`
+- Submenu de exibição com as 4 opções de percurso/visualização
+- Tratamento básico de entrada inválida (`limparBuffer`)
+- Liberação de memória da árvore ao encerrar o programa (`esvaziar`)
+- Integração de todos os módulos (`arvore.h/.c`, `arquivo.h/.c`) no `main.c`
+- Adaptação temporária do código legado de `criar`, `inserir`, `compara`, `remover`, `buscaSetPai` em `arvore.c`, para manter o sistema funcional enquanto Carlos e Adrian não entregam suas partes
+
+## Carlos Eduardo Menezes Cavalcante
+- Estruturas de dados da ABB
+- Criação dos nós
+- Inserção de registros
+- Validação de dados
+
+**Status:** ⚠️ Pendente
+- As funções `criar`, `inserir`, `insereRaiz`, `insereEsquerda`, `insereDireita` e `compara` estão atualmente com a adaptação do código legado feita por Daniel, apenas para o sistema compilar e funcionar
+- Falta Carlos revisar/reescrever essas funções e a validação de dados (ex.: validação de entrada do usuário, checagem de campos antes de inserir)
+
+## Nelson Francisco Suassuna Neto
+- Pesquisa de registros
+- Percursos da árvore
+- Exibição Pré-Ordem
+- Exibição In-Ordem
+- Exibição Pós-Ordem
+
+**Status:** ✅ Concluído (em `arvore.c`/`arvore.h`)
+- `exibirPreOrdem`, `exibirInOrdem`, `exibirPosOrdem` exibindo código e nome de cada registro
+- `busca`/`buscaABB` integradas ao submenu de pesquisa (opção 3 do menu principal)
+
+## José Adrian Cosmo de Sousa
+- Remoção de nós
+- Implementação do sucessor
+- Busca com nó pai
+- Tratamento dos casos de remoção
+
+**Status:** ⚠️ Pendente
+- As funções `remover` e `buscaSetPai` estão atualmente com a adaptação do código legado feita por Daniel, apenas para o sistema compilar e funcionar
+- Falta Adrian revisar/reescrever essas funções, garantindo o tratamento correto dos 3 casos de remoção (nó sem filhos, com um filho, com dois filhos/sucessor) e validar a busca com nó pai
+
+## Evelyn Vitória Dantas Silva do Nascimento
+- Leitura de arquivos
+- Esvaziamento da árvore
+- Exibição gráfica
+- Testes, documentação e validação final
+
+**Status:** ✅ Concluído
+- `lerArquivo` (em `arquivo.c`/`arquivo.h`) lê o `dados.txt` no formato `codigo;nome`, faz o parsing de cada linha e insere os registros na árvore — integrada ao menu (opção 6)
+- `esvaziar` percorre a árvore recursivamente liberando cada nó, integrada ao menu (opção 4) e chamada automaticamente ao encerrar o programa (opção 0)
+- `exibirGraficamente` adaptada para terminal padrão (sem `gotoxy`/`conio.h`), usando recuo proporcional ao nível de cada nó — integrada ao submenu de exibição (opção 5 → 4)
+- Validação final do fluxo completo do sistema (testes de ponta a ponta)
+
+---
+
+# Testes Realizados
+
+- ✅ Inserção manual de registros
+- ✅ Carregamento via `dados.txt` (5 registros: Notebook, Monitor, Teclado, Mouse, Impressora)
+- ✅ Pesquisa por código (encontrado e não encontrado)
+- ✅ Remoção (casos sem filhos, um filho e dois filhos) — testado com a versão adaptada por Daniel, sujeito a revisão de Adrian
+- ✅ Percursos Pré-Ordem, In-Ordem e Pós-Ordem
+- ✅ Esvaziamento da árvore
+- ✅ Exibição gráfica
+
+---
+
+# Pendências
+
+- [ ] Carlos: revisar/reescrever `criar`, `inserir`, `insereRaiz`, `insereEsquerda`, `insereDireita`, `compara` e validações de dados
+- [ ] Adrian: revisar/reescrever `remover`, `buscaSetPai` e tratamento dos casos de remoção
+- [ ] Gravação do vídeo demonstrativo
+
+---
+
+# Entrega
+
+O projeto será entregue contendo:
+
+- Código fonte (`src/arvore.h`, `src/arvore.c`, `src/arquivo.h`, `src/arquivo.c`, `src/main.c`)
+- README
+- Arquivo de entrada (`dados.txt`)
+- Vídeo demonstrativo
+
+Disciplina: Estrutura de Dados I
+Professor: Walace Bonfim
