@@ -219,7 +219,7 @@ int inserir(t_arvore *tree, t_elemento item)
     return ok;
 }
 
-/* Busca com pai */
+/* Busca um nó na ABB e retorna também seu nó pai */
 t_no *buscaSetPai(t_arvore tree, t_elemento dado, t_no **pai)
 {
     if (tree == NULL) {
@@ -239,7 +239,11 @@ t_no *buscaSetPai(t_arvore tree, t_elemento dado, t_no **pai)
     }
 }
 
-/* Remover ABB */
+/* Remoção em ABB:
+   Caso 1: nó folha
+   Caso 2: nó com um filho
+   Caso 3: nó com dois filhos usando sucessor
+*/
 int remover(t_arvore *tree, t_elemento item)
 {
     t_no *no, *pai, *sub, *paiSuce, *suce;
