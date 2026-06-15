@@ -255,21 +255,27 @@ int remover(t_arvore *tree, t_elemento item)
     if (no == NULL)
         return 0;
 
+    /* Caso 1: nó sem filho esquerdo */
     if (no->esq == NULL)
         sub = no->dir;
+        
+    /* Caso 2: nó sem filho direito */
     else if (no->dir == NULL)
         sub = no->esq;
+        
+   /* Caso 3: nó com dois filhos */
     else {
         paiSuce = no;
         sub = no->dir;
         suce = sub->esq;
-
+        
+   /* Busca do sucessor em ordem */
         while (suce != NULL) {
             paiSuce = sub;
             sub = suce;
             suce = sub->esq;
         }
-
+  /* Reorganiza os ponteiros após encontrar o sucessor */
         if (paiSuce != no) {
             paiSuce->esq = sub->dir;
             sub->dir = no->dir;
