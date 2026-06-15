@@ -180,9 +180,10 @@ A distribuição foi realizada de forma equilibrada.
 - Busca com nó pai
 - Tratamento dos casos de remoção
 
-**Status:** ⚠️ Pendente
-- As funções `remover` e `buscaSetPai` estão atualmente com a adaptação do código legado feita por Daniel, apenas para o sistema compilar e funcionar
-- Falta Adrian revisar/reescrever essas funções, garantindo o tratamento correto dos 3 casos de remoção (nó sem filhos, com um filho, com dois filhos/sucessor) e validar a busca com nó pai
+**Status:** ✅ Concluído
+- `remover` e `buscaSetPai` revisadas e reescritas em `arvore.c`
+- Tratamento correto dos 3 casos de remoção (nó sem filhos, com um filho, com dois filhos/sucessor)
+- Busca com nó pai validada e integrada ao fluxo de remoção
 
 ## Evelyn Vitória Dantas Silva do Nascimento
 - Leitura de arquivos
@@ -203,7 +204,7 @@ A distribuição foi realizada de forma equilibrada.
 - ✅ Inserção manual de registros
 - ✅ Carregamento via `dados.txt` (5 registros: Notebook, Monitor, Teclado, Mouse, Impressora)
 - ✅ Pesquisa por código (encontrado e não encontrado)
-- ✅ Remoção (casos sem filhos, um filho e dois filhos) — testado com a versão adaptada por Daniel, sujeito a revisão de Adrian
+- ✅ Remoção (casos sem filhos, um filho e dois filhos)
 - ✅ Percursos Pré-Ordem, In-Ordem e Pós-Ordem
 - ✅ Esvaziamento da árvore
 - ✅ Exibição gráfica
@@ -213,14 +214,13 @@ A distribuição foi realizada de forma equilibrada.
 # Pendências
 
 - [ ] Carlos: revisar/reescrever `criar`, `inserir`, `insereRaiz`, `insereEsquerda`, `insereDireita`, `compara` e validações de dados
-- [ ] Adrian: revisar/reescrever `remover`, `buscaSetPai` e tratamento dos casos de remoção
 - [ ] Gravação do vídeo demonstrativo
 
 ---
 
 # Entrega
 
-O projeto será entregue contendo:
+O projeto será entregido contendo:
 
 - Código fonte (`src/arvore.h`, `src/arvore.c`, `src/arquivo.h`, `src/arquivo.c`, `src/main.c`)
 - README
