@@ -159,9 +159,11 @@ A distribuição foi realizada de forma equilibrada.
 - Inserção de registros
 - Validação de dados
 
-**Status:** ⚠️ Pendente
-- As funções `criar`, `inserir`, `insereRaiz`, `insereEsquerda`, `insereDireita` e `compara` estão atualmente com a adaptação do código legado feita por Daniel, apenas para o sistema compilar e funcionar
-- Falta Carlos revisar/reescrever essas funções e a validação de dados (ex.: validação de entrada do usuário, checagem de campos antes de inserir)
+**Status:** ✅ Concluído (em `arvore.c`/`arvore.h`)
+- Adaptação do código legado concluída e revisada
+- Funções `criar`, `inserir`, `insereRaiz`, `insereEsquerda`, `insereDireita` e `compara` totalmente integradas, refatoradas e testadas
+- Validação de entrada do usuário implementada
+- Checagem de campos antes da inserção implementada
 
 ## Nelson Francisco Suassuna Neto
 - Pesquisa de registros
