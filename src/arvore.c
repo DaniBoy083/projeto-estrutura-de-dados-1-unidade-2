@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "arvore.h"
+#include <string.h>
 
 
 /* Validações */
@@ -9,7 +10,7 @@ int validarCodigo(int codigo) {
         printf("[ERRO] Codigo invalido, o mesmo precisa ser um inteiro positivo. \n");
         return 0;
     }
-    retun 1;
+    return 1;
 }
 
 
@@ -22,12 +23,12 @@ int validarNome(const char *nome) {
         printf("[ERRO] Nome invalido: deve ter no maximo 99 caracteres.\n");
         return 0;
     }
-     
+    return 1;
 }
  
 
 int validarElemento(t_elemento dado) {
-    return validarCodigo(dado.codigo) && validarNome(elem.nome);
+    return validarCodigo(dado.codigo) && validarNome(dado.nome);
 }
  
 
@@ -77,11 +78,11 @@ t_no *criar(t_elemento dado)
 
     if (novo == NULL) {
         printf("[ERRO] Falha ao alocar memoria para o no. \n");
-        return = NULL;
+        return NULL;
     }
 
-    novo -> dado = elem;
-    no->esq = no->dir = NULL;
+    novo -> dado = dado;
+    novo->esq = novo->dir = NULL;
     return novo;
 }
 
@@ -116,7 +117,7 @@ int insereRaiz(t_arvore *tree, t_elemento dado){
         return 0;
     }
 
-    if (*tree !== NULL){
+    if (*tree != NULL){
         printf ("[AVISO] Arvore ja possui raiz. Use inserir() para adicionar novos nos.\n");
         return 0;
     }
@@ -135,7 +136,7 @@ int insereRaiz(t_arvore *tree, t_elemento dado){
 
     *tree = novo;
     
-    printf("[OK] Raiz inserida com sucesso")
+    printf("[OK] Raiz inserida com sucesso\n");
     return 1;
 
 }
