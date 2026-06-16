@@ -15,11 +15,16 @@ typedef struct no {
 
 typedef t_no* t_arvore;
 
+/* Validações */
+int validarCodigo(int codigo);
+int validarNome(const char *nome);
+int validarElemento(t_elemento dado);
+
 /* Comparação (chave = codigo) */
 int compara(t_elemento a, t_elemento b);
 
 /* Criação / verificação */
-t_no *criar(void);
+t_no *criar(t_elemento dado);
 int isVazia(t_no *no);
 
 /* Busca */
@@ -28,7 +33,7 @@ t_no *buscaABB(t_arvore tree, t_elemento dado);
 t_no *buscaSetPai(t_arvore tree, t_elemento dado, t_no **pai);
 
 /* Inserção */
-int insereRaiz(t_arvore *tree, t_elemento dado);
+int insereRaiz(t_arvore *tree, t_elemento dado );
 int insereDireita(t_arvore tree, t_elemento pai, t_elemento filho);
 int insereEsquerda(t_arvore tree, t_elemento pai, t_elemento filho);
 int inserir(t_arvore *tree, t_elemento item);

@@ -2,6 +2,36 @@
 #include <stdlib.h>
 #include "arvore.h"
 
+
+/* Validações */
+int validarCodigo(int codigo) {
+    if(codigo <= 0) {
+        printf("[ERRO] Codigo invalido, o mesmo precisa ser um inteiro positivo. \n");
+        return 0;
+    }
+    retun 1;
+}
+
+
+int validarNome(const char *nome) {
+    if (nome == NULL || strlen(nome) == 0) {
+        printf("[ERRO] Nome invalido: nao pode ser vazio.\n");
+        return 0;
+    }
+    if (strlen(nome) > 99) {
+        printf("[ERRO] Nome invalido: deve ter no maximo 99 caracteres.\n");
+        return 0;
+    }
+     
+}
+ 
+
+int validarElemento(t_elemento dado) {
+    return validarCodigo(dado.codigo) && validarNome(elem.nome);
+}
+ 
+
+
 /* Comparação baseada no código (chave de pesquisa da ABB) */
 int compara(t_elemento a, t_elemento b)
 {
@@ -41,14 +71,18 @@ void exibirPosOrdem(t_arvore tree)
 }
 
 /* Criar nó */
-t_no *criar(void)
+t_no *criar(t_elemento dado)
 {
-    t_no *no = (t_no*) malloc(sizeof(t_no));
+    t_no *novo = (t_no *) malloc(sizeof(t_no));
 
-    if (no)
-        no->esq = no->dir = NULL;
+    if (novo == NULL) {
+        printf("[ERRO] Falha ao alocar memoria para o no. \n");
+        return = NULL;
+    }
 
-    return no;
+    novo -> dado = elem;
+    no->esq = no->dir = NULL;
+    return novo;
 }
 
 /* Nó vazio */
@@ -77,24 +111,34 @@ t_no *busca(t_arvore tree, t_elemento dado)
 }
 
 /* Inserir raiz */
-int insereRaiz(t_arvore *tree, t_elemento dado)
-{
-    t_no *novo;
-
-    if (*tree != NULL)
+int insereRaiz(t_arvore *tree, t_elemento dado){
+    if (!validarElemento(dado)) {
         return 0;
+    }
 
-    novo = criar();
-
-    if (novo == NULL)
+    if (*tree !== NULL){
+        printf ("[AVISO] Arvore ja possui raiz. Use inserir() para adicionar novos nos.\n");
         return 0;
+    }
 
-    novo->dado = dado;
+    t_no *novo = criar(dado);
+
+    if (novo == NULL){
+        return 0;
+    }
+        
+
+    if (novo == NULL){
+        return 0;
+    }
+        
+
     *tree = novo;
-
+    
+    printf("[OK] Raiz inserida com sucesso")
     return 1;
-}
 
+}
 /* Inserir à direita */
 int insereDireita(t_arvore tree, t_elemento pai, t_elemento filho)
 {
@@ -111,11 +155,10 @@ int insereDireita(t_arvore tree, t_elemento pai, t_elemento filho)
     if (p->dir != NULL)
         return 0;
 
-    novo = criar();
+    novo = criar(filho);
     if (novo == NULL)
         return 0;
 
-    novo->dado = filho;
     p->dir = novo;
 
     return 1;
@@ -137,11 +180,11 @@ int insereEsquerda(t_arvore tree, t_elemento pai, t_elemento filho)
     if (p->esq != NULL)
         return 0;
 
-    novo = criar();
+    novo = criar(filho);
     if (novo == NULL)
         return 0;
 
-    novo->dado = filho;
+    
     p->esq = novo;
 
     return 1;
@@ -195,25 +238,28 @@ t_no *buscaABB(t_arvore tree, t_elemento dado)
 }
 
 /* Inserção ABB */
-int inserir(t_arvore *tree, t_elemento item)
+int inserir(t_arvore *tree, t_elemento dado)
 {
+    if (!validarElemento(dado)) {
+        return 0;
+    }
     int ok;
 
     if (*tree == NULL) {
-        *tree = criar();
+        *tree = criar(dado);
 
         if (*tree == NULL)
             return 0;
 
-        (*tree)->dado = item;
         return 1;
     }
 
-    if (compara((*tree)->dado, item) < 0)
-        ok = inserir(&((*tree)->dir), item);
-    else if (compara((*tree)->dado, item) > 0)
-        ok = inserir(&((*tree)->esq), item);
+    if (compara((*tree)->dado, dado) < 0)
+        ok = inserir(&((*tree)->dir), dado);
+    else if (compara((*tree)->dado, dado) > 0)
+        ok = inserir(&((*tree)->esq), dado);
     else
+        printf("[AVISO] Codigo %d ja existe na arvore. Insercao ignorada.\n", dado.codigo);
         ok = 0;
 
     return ok;
